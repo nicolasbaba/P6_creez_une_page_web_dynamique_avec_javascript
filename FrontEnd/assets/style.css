@@ -212,4 +212,41 @@ footer nav ul {
 	justify-content: center;
 	margin-bottom: 51px;
 }
+.form-conection{
+	background: #FFFEF8;
+	height: 680px;
+	display: flex;
+	flex-direction: column;
+ 
+}
+.titre-login{
+	padding: 150px 0 60px 0;
+	
+	margin: 0 auto 0 auto;
+}
+.input{
+	box-shadow: 0px 4px 14px 0px rgba(0, 0, 0, 0.09);
+	border: none;
+	width: 379px;
+	height: 40px;
+	margin: 0 auto 0 auto;
+	background: #fff;
+}
+.label{
+	margin: 30px auto 6px 380px;
+}
+.btn-conexion{
+	border: none;
+	width: 179px;
+	height: 36px;
+	flex-shrink: 0;
+	border-radius: 60px;
+	background: #1D6154;
+	margin: 37px auto 0 auto;
+	color: #FFF;
+}
+.lien {
+	color:black ;
+	margin: 28px auto 0 auto;
+}
 
