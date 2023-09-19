@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <meta charset="UTF-8">
+    <title>Sophie Bluel - Architecte d'intérieur</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=Work+Sans&display=swap" rel="stylesheet">
+    <meta name="description" content="">
+    <link rel="stylesheet" href="./assets/style.css">
+</head>
+<body>
+    <header>
+        <h1>Sophie Bluel <span>Architecte d'intérieur</span></h1>
+        <nav>
+            <ul>
+                <a class="lien" href="#projet">
+                    <li>projets</li>
+                </a>
+                <a class="lien" href="#contact">
+                    <li>contact</li>
+                </a>
+                <a class="lien login " href="">
+                    <li>login</li>
+                </a>
+                <li><img src="./assets/icons/instagram.png" alt="Instagram"></li>
+            </ul>
+        </nav>
+    </header>
+    <main>
+        <form id="login-form">
+            <div class="form-conection">
+                <h2 class="titre-login">Login</h2>
+                <label class="label" for="email">Email</label>
+                <input class="input" type="email" id="email" name="email" required>
+                <label class="label" for="password">Mot de passe</label>
+                <input class="input" type="password" id="password" name="password" required>
+                <div id="error-message" class="error-message">
+                    Erreur dans l’identifiant ou le mot de passe
+                </div>
+                <button class="btn-conexion" type="submit">Se connecter</button>
+                <a class="lien-mdp" href="#">Mot de passe oublié</a>
+            </div>
+        </form>
+    </main>
+    <footer>
+        <nav>
+            <ul>
+                <li>Mentions Légales</li>
+            </ul>
+        </nav>
+    </footer>
+<script src="login.js"></script>
+</body>
+</html>

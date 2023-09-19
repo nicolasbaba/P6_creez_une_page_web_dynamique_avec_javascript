@@ -1,7 +1,7 @@
 const apiURL = "http://localhost:5678/api/works";
 const galleryDiv = document.querySelector(".gallery");
 let originalData = [];
-// console.log(originalData);
+// console.log(apiURL);
 
 ///recuperation des donne via l'API
 const requestOptions = {
@@ -42,7 +42,7 @@ function displayProjects(data) {
   });
   galleryDiv.innerHTML = projectsHTML;
 }
-
+////function filterProjectsByCategory egale a categoryId
 function filterProjectsByCategory(categoryId) {
   const filteredData = originalData.filter(
     (work) => work.categoryId === categoryId
@@ -75,36 +75,7 @@ boutonHotelRestaurant.addEventListener("click", () => {
 ////// Appel initial pour récupérer tous les projets
 fetchProjects();
 
-/////creation formulaire intégré à la page de connexion
-const boutonLogin = document.querySelector(".login");
-const mainContainer = document.querySelector("main")
 
-////ajouter un ecoute au clique sur le lien login
-boutonLogin.addEventListener("click", (e) => {
 
-  ///enpecher le rechargement de la page par défaut
-  e.preventDefault();
 
-  // Créer un formulaire
-  const loginForm = document.createElement("form");
-  loginForm.innerHTML = `
-      <div class="form-conection">
-      <h2 class="titre-login">Login</h2>
-      <label class="label" for="email">Email</label>
-      <input class="input" type="email" id="email" name="email" required>
-      <label class="label" for="password">Mot de passe</label>
-      <input class="input" type="password" id="password" name="password" required>
-      <button class="btn-conexion" type="submit">Se connecter</button>
-      <a class="lien" href="#">Mot de passe oublié</a>
-      </div>
-       `;
-  
-  ///vider le main
-  mainContainer.innerHTML = "";
-
-  /// introduire le formulaire dans le main
-  mainContainer.appendChild(loginForm);
- 
-
-});
 

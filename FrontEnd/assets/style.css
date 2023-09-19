@@ -211,6 +211,7 @@ footer nav ul {
 	gap: 10px;
 	justify-content: center;
 	margin-bottom: 51px;
+	visibility:visible;
 }
 .form-conection{
 	background: #FFFEF8;
@@ -242,11 +243,23 @@ footer nav ul {
 	flex-shrink: 0;
 	border-radius: 60px;
 	background: #1D6154;
-	margin: 37px auto 0 auto;
+	margin: 7px auto 0 auto;
 	color: #FFF;
 }
-.lien {
+.lien-mdp {
 	color:black ;
 	margin: 28px auto 0 auto;
 }
+.error-message{
+	margin: 12px auto 0 auto;
+	visibility:hidden;
+	animation-delay: 0.4s;
+}
+#btn-modify{
+	color: black;
+	text-decoration: none;
+}
+.modify{
+	
 
+}
