@@ -1,6 +1,7 @@
 const apiURL = "http://localhost:5678/api/works";
 const galleryDiv = document.querySelector(".gallery");
 let originalData = [];
+
 // console.log(apiURL);
 
 ///recuperation des donne via l'API
@@ -29,7 +30,7 @@ function fetchProjects() {
       console.error("Une erreur s'est produite :", error);
     });
 }
-/////intégré dinamiquement les projet a la page 
+/////intégré dinamiquement les projet a la page
 function displayProjects(data) {
   let projectsHTML = "";
   data.forEach((work) => {
@@ -50,16 +51,16 @@ function filterProjectsByCategory(categoryId) {
   displayProjects(filteredData);
 }
 
-////trier les projet 
+////trier les projet
 const boutonTous = document.querySelector(".btn-1");
 const boutonObjet = document.querySelector(".btn-2");
 const boutonApartements = document.querySelector(".btn-3");
 const boutonHotelRestaurant = document.querySelector(".btn-4");
-////au clique sur boutonTous afficher touts les projet 
+////au clique sur boutonTous afficher touts les projet
 boutonTous.addEventListener("click", () => {
   displayProjects(originalData);
 });
-///// au clique sure boutonObjet afficher tout les objet 
+///// au clique sure boutonObjet afficher tout les objet
 boutonObjet.addEventListener("click", () => {
   filterProjectsByCategory(1);
 });
@@ -74,8 +75,3 @@ boutonHotelRestaurant.addEventListener("click", () => {
 
 ////// Appel initial pour récupérer tous les projets
 fetchProjects();
-
-
-
-
-

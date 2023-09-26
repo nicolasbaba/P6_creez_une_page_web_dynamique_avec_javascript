@@ -30,6 +30,7 @@ footer, header, hgroup, menu, nav, section {
 }
 body {
 	line-height: 1;
+	
 }
 ol, ul {
 	list-style: none;
@@ -98,8 +99,7 @@ nav li {
 	color: black;
 		
 }
-
-li:hover {
+.lien:hover {
 	color: #B1663C;
 }
 #introduction {
@@ -126,8 +126,8 @@ li:hover {
 	margin-bottom: 0.5em;
 }
 #portfolio h2 {
+	margin-top: 139px ;
 	text-align: center;
-	margin-bottom: 1em;
 }
 .gallery {
 	width: 100%;
@@ -210,8 +210,8 @@ footer nav ul {
 	flex-direction: row;
 	gap: 10px;
 	justify-content: center;
-	margin-bottom: 51px;
-	visibility:visible;
+	margin: 51px 0 51px 0;
+	visibility: visible;
 }
 .form-conection{
 	background: #FFFEF8;
@@ -255,11 +255,95 @@ footer nav ul {
 	visibility:hidden;
 	animation-delay: 0.4s;
 }
-#btn-modify{
+/* .window-modale */
+.btn-modify{
 	color: black;
 	text-decoration: none;
+	top: 0;
+	right: 0;
+	margin: -20px 370px auto 31px ;
+	float: right;
+	visibility: hidden;
 }
-.modify{
-	
-
+.window-modale{
+	width: 630px;
+	height: 688px;
+	background-color: #ffff;
+	position: absolute;
+	 top: 100%;  
+	left: 50%;
+	right: 50%;
+	transform: translate(-50%, -50%); 
+	border-radius: 10px;
+	display: none;
+}
+.window-modale h3{
+	position: relative;
+	margin: 0 auto 0 auto;
+	/* font-family: Work Sans; */
+	font-size: 26px;
+	text-align: center;
+	margin: 60px 0 46px 0;
+}
+.overlay {
+	display: none;
+	position: fixed;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	background: rgba(0, 0, 0, 0.3);
+}
+.fa-xmark{
+	float: right;
+	margin: 26px 30px 0 0;
+	font-size: 1.3rem;
+	color: black;
+}
+.gallery-modale{
+	justify-content: center;
+    display: grid;
+	grid-template-columns: repeat(5, 78.123px);
+	grid-template-rows: repeat(3, 104px);
+	grid-column-gap: 6px;
+	grid-row-gap: 25px;
+}
+ .projet-modale img{
+	width: 100%;
+}
+.btn-add-picture{
+	margin: 38px 198px 54px 195px  ;
+	font-family: Syne;
+	font-size: 14px;
+	width: 237px;
+	height: 36px;
+	border-radius: 60px;
+	background: #1D6154;
+	color: #FFF;
+	border: none;
+}
+.rod {
+	margin-top: 67px;
+	border: none;
+	color: #B3B3B3;
+	width: 420px;
+	height: 0px;
+	border: 1px solid #B3B3B3;
+	left: 510px;
+	top: 1229px;
+}
+.container-trash{
+	margin: 5px 55px;
+	position: absolute;
+	background-color: black;
+	width: 18px;
+	height: 18px;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	border-radius: 4px;
+}
+.fa-trash-can{
+	color: #FFF;
+	font-size: 0.7rem;
 }

@@ -9,7 +9,8 @@
 	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 	<link href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=Work+Sans&display=swap"
 		rel="stylesheet">
-		<script src="https://kit.fontawesome.com/c84cb5bfdd.js" crossorigin="anonymous"></script>
+	<script src="https://kit.fontawesome.com/c84cb5bfdd.js" crossorigin="anonymous"></script>
+
 	<meta name="description" content="">
 	<link rel="stylesheet" href="./assets/style.css">
 <body>
@@ -17,15 +18,21 @@
 		<h1>Sophie Bluel <span>Architecte d'intérieur</span></h1>
 		<nav>
 			<ul>
-				<a class="lien" href="#projet"><li>projets</li></a>
-				<a class="lien" href="#contact"><li>contact</li></a>
-				<a class="lien login " href="login.html"><li>login</li></a>
+				<li>
+					<a class="lien" href="#projet">projets</a>
+				</li>
+				<li>
+					<a class="lien" href="#contact">contact</a>
+				</li>
+				<li>
+					<a class="lien login " href="login.html">login</a>
+				</li>
 				<li><img src="./assets/icons/instagram.png" alt="Instagram"></li>
 			</ul>
 		</nav>
 	</header>
 	<main>
-		<section id="introduction">
+		<div id="introduction">
 			<figure>
 				<img src="./assets/images/sophie-bluel.png" alt="">
 			</figure>
@@ -39,13 +46,22 @@
 				<p>En cas de besoin, une équipe pluridisciplinaire peut-être constituée : architecte DPLG,
 					décorateur(trice)</p>
 			</article>
-		</section>
-		<section id="portfolio">
-			<!-- <div class="modyfy"> -->
+		</div>
+		<div class="overlay" id="overlay"></div>
+		<div id="window-modale" class="window-modale">
+		<a href="index.html"><i class="fa-solid fa-xmark"></i></a>
+		<h3 class="titre-modale">Galerie photo</h3>
+		<div class="gallery-modale">
+		</div>
+		<hr class="rod">
+		<button class="btn-add-picture">Ajouter une photo</button>
+		</div>
+		<div id="portfolio">
+			<div class="container-h2-lien">
+			<div>
 			<h2 id="projet">Mes Projets</h2>
-			<!-- <a id="btn-modify" href="">
-			<i class="fa-solid fa-pen-to-square"></i>modifier</a> -->
-			<!-- </div> -->
+			<a id="btn-modify" class="btn-modify" href="#window-modale"><i class="fa-solid fa-pen-to-square"></i>modifier</a>
+			</div>
 			<div class="container-btn">
 				<button class="btn btn-1">Tous</button>
 				<button class="btn btn-2">Objets</button>
@@ -54,9 +70,9 @@
 			</div>
 			<div class="gallery">
 			</div>
-		</section>
-		<section id="contact">
-			<h2 id="contact">Contact</h2>
+		</div>
+		<div id="contact">
+			<h2>Contact</h2>
 			<p>Vous avez un projet ? Discutons-en !</p>
 			<form action="#" method="post">
 				<label for="name">Nom</label>
@@ -67,7 +83,8 @@
 				<textarea name="message" id="message" cols="30" rows="10"></textarea>
 				<input type="submit" value="Envoyer">
 			</form>
-		</section>
+		</div>
+		
 	</main>
 
 	<footer>
@@ -76,9 +93,10 @@
 				<li>Mentions Légales</li>
 			</ul>
 		</nav>
-	</footer>
+	 </footer>
+	
 	<script src="index.js"></script>
-
+	<script src="modify.js"></script>
 </body>
 
 </html>
