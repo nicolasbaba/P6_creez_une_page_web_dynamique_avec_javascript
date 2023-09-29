@@ -25,11 +25,32 @@ function fetchProjects() {
     .then((data) => {
       originalData = data;
       displayProjects(data);
+      displayProjectsInModal();
     })
-    .catch((error) => {
-      console.error("Une erreur s'est produite :", error);
+    .then(() => {
+      // Sélectionnez tous les éléments avec la classe "btn-trash"
+      const trashLinks = document.querySelectorAll(".btn-trash");
+      trashLinks.forEach((trashLink) => {
+        trashLink.addEventListener("click", (e) => {
+          // Empêcher le lien de rediriger vers une autre page
+          e.preventDefault();
+          const projectIdToDelete = trashLink.getAttribute("data-id");
+          console.log(projectIdToDelete);
+          /// double validation avant supression
+          function confirmDelete() {
+            const confirmation = window.confirm(
+              "Voulez-vous vraiment supprimer ce projet ?"
+            );
+            if (confirmation) {
+              deleteProjectById(projectIdToDelete);
+            }
+          }
+          confirmDelete();
+        });
+      });
     });
 }
+
 /////intégré dinamiquement les projet a la page
 function displayProjects(data) {
   let projectsHTML = "";
@@ -75,3 +96,19 @@ boutonHotelRestaurant.addEventListener("click", () => {
 
 ////// Appel initial pour récupérer tous les projets
 fetchProjects();
+
+document.addEventListener("DOMContentLoaded", function () {
+  const buttons = document.querySelectorAll(".btn");
+
+  buttons.forEach((button) => {
+    button.addEventListener("click", function () {
+      // Supprime la classe "btn-default" de tous les boutons
+      buttons.forEach((btn) => {
+        btn.classList.remove("btn-default");
+      });
+
+      // Ajoute la classe "btn-default" au bouton actuellement cliqué
+      this.classList.add("btn-default");
+    });
+  });
+});

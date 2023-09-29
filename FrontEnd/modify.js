@@ -5,7 +5,7 @@ const windowModale = document.querySelector(".window-modale");
 const overlay = document.querySelector("#overlay");
 const modaleGaleryDiv = document.querySelector(".gallery-modale");
 const containerBtn = document.querySelector(".container-btn");
-
+const banner = document.querySelector(".banner")
 // Vérifier si le token existe (si l'utilisateur est authentifié)
 if (token) {
   // Afficher l'élément "modifier"
@@ -13,15 +13,21 @@ if (token) {
 
   // Masquer l'élément "container-btn"
   containerBtn.style.visibility = "hidden"; // Masquer l'élément
+
+  //afficher l'élément "banner"
+  banner.style.display = "block";
 }
+
+
 
 function generateProjectsHTML(data) {
   let projectsHTML = "";
+// console.log("creation btn-trash");
   data.forEach((work) => {
     projectsHTML += `
       <div class="projet-modale">
       <div class="container-trash">
-      <a class="btn-trash" href="#" data-id="${work.id}"><i class="fa-solid fa-trash-can"></i></a>
+       <a class="btn-trash" href="#" data-id="${work.id}"><i class="fa-solid fa-trash-can"></i></a>
         </div>
         <img src="${work.imageUrl}" alt="${work.title}">
       </div>
@@ -32,6 +38,7 @@ function generateProjectsHTML(data) {
 
 // Fonction pour afficher les projets dans la fenêtre modale
 function displayProjectsInModal() {
+
   const projectsHTML = generateProjectsHTML(originalData);
   modaleGaleryDiv.innerHTML = projectsHTML;
 }
@@ -56,7 +63,7 @@ function hideWindowModale() {
 // Ajoutez un écouteur de clic au bouton pour afficher la fenêtre modale et l'overlay
 btnModify.addEventListener("click", () => {
   showWindowModale();
-  displayProjectsInModal();
+ 
 });
 
 // Ajoutez un écouteur de clic à l'overlay pour masquer la fenêtre modale et l'overlay
@@ -64,13 +71,15 @@ overlay.addEventListener("click", () => {
   hideWindowModale();
 });
 
-// ////////////// supression des projets via une requeT API avec methode DELET
+////////////// supression des projets via une requeT API avec methode DELET
 
+
+
+ /////supression des donne via l'API par ID
 function deleteProjectById(projectId) {
   const apiUrl = `http://localhost:5678/api/works/${projectId}`;
   
-  const token =  token 
-    
+
   fetch(apiUrl, {
     method: "DELETE",
     headers: {
@@ -79,19 +88,13 @@ function deleteProjectById(projectId) {
     },
   })
     .then((response) => {
-      console.log("L'élément a été supprimé avec succès.",response);
+      console.log("	Non autorisé",response);
     })
     .catch((error) => {
       console.error("Une erreur s'est produite lors de la requête.", error);
     });
-
-    const trashLink = document.querySelector(".btn-trash");
-    if (trashLink) {
-      trashLink.addEventListener("click", (e) => {
-        console.log("Le bouton btn-trash a été cliqué.");
-        const projectIdToDelete = e.target.getAttribute("data-id");
-        deleteProjectById(projectIdToDelete);
-      });
-    }
+  
 }
+
+
 

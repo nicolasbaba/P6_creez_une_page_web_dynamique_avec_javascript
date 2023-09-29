@@ -21,6 +21,7 @@ loginForm.addEventListener("submit", async (e) => {
   // Convertir data en JSON
   const formJSON = JSON.stringify(loginData);
 
+try {
   const response = await fetch("http://localhost:5678/api/users/login", {
     method: "POST",
     body: formJSON,
@@ -32,8 +33,11 @@ loginForm.addEventListener("submit", async (e) => {
 
   // Vérification de la réponse de l'API
   if (response.ok) {
+    // Extraction du token de la réponse JSON
+    const tokenData = await response.json();
+    const token = tokenData.token;
+    console.log(response.json);
     // Stocker le token dans sessionStorage
-    const token = await response.json();
     sessionStorage.setItem("token", token);
 
     // Rediriger l'utilisateur vers la page souhaitée
@@ -43,9 +47,15 @@ loginForm.addEventListener("submit", async (e) => {
     const errorMessage = document.getElementById("error-message");
     errorMessage.style.visibility = "visible";
   }
+} catch (error) {
+  const errorMessage2 = document.getElementById("error-message-2");
+ errorMessage2.style.display = "block";
+}
+
 });
 
-// const token = sessionStorage.getItem("token");
+const token = sessionStorage.getItem("token");
 // console.log(token);
+
 
 
