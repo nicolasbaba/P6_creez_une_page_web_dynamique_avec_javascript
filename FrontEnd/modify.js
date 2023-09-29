@@ -5,7 +5,8 @@ const windowModale = document.querySelector(".window-modale");
 const overlay = document.querySelector("#overlay");
 const modaleGaleryDiv = document.querySelector(".gallery-modale");
 const containerBtn = document.querySelector(".container-btn");
-const banner = document.querySelector(".banner")
+const banner = document.querySelector(".banner");
+
 // Vérifier si le token existe (si l'utilisateur est authentifié)
 if (token) {
   // Afficher l'élément "modifier"
@@ -18,11 +19,8 @@ if (token) {
   banner.style.display = "block";
 }
 
-
-
 function generateProjectsHTML(data) {
   let projectsHTML = "";
-// console.log("creation btn-trash");
   data.forEach((work) => {
     projectsHTML += `
       <div class="projet-modale">
@@ -38,7 +36,6 @@ function generateProjectsHTML(data) {
 
 // Fonction pour afficher les projets dans la fenêtre modale
 function displayProjectsInModal() {
-
   const projectsHTML = generateProjectsHTML(originalData);
   modaleGaleryDiv.innerHTML = projectsHTML;
 }
@@ -63,7 +60,6 @@ function hideWindowModale() {
 // Ajoutez un écouteur de clic au bouton pour afficher la fenêtre modale et l'overlay
 btnModify.addEventListener("click", () => {
   showWindowModale();
- 
 });
 
 // Ajoutez un écouteur de clic à l'overlay pour masquer la fenêtre modale et l'overlay
@@ -73,12 +69,9 @@ overlay.addEventListener("click", () => {
 
 ////////////// supression des projets via une requeT API avec methode DELET
 
-
-
- /////supression des donne via l'API par ID
+/////supression des donne via l'API par ID
 function deleteProjectById(projectId) {
   const apiUrl = `http://localhost:5678/api/works/${projectId}`;
-  
 
   fetch(apiUrl, {
     method: "DELETE",
@@ -88,13 +81,22 @@ function deleteProjectById(projectId) {
     },
   })
     .then((response) => {
-      console.log("	Non autorisé",response);
+      console.log("	Non autorisé", response);
     })
     .catch((error) => {
       console.error("Une erreur s'est produite lors de la requête.", error);
+
     });
-  
 }
 
 
 
+const addProjects = document.querySelector(".add-projets")
+const Modale = document.querySelector(".Modale")
+const boutonAddPhoto = document.querySelector(".btn-add-picture");
+boutonAddPhoto.addEventListener("click", (e) => {
+  e.preventDefault();
+  console.log("vous avez cliquer sur ajouter une photo");
+  Modale.style.display = "none";
+  addProjects.style.display = "block";
+});
