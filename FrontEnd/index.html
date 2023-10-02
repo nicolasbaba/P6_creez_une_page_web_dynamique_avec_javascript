@@ -13,7 +13,8 @@
 	<meta name="description" content="">
 	<link rel="stylesheet" href="./assets/style.css">
 </head>
-<body>	
+
+<body>
 	<div class="banner">
 		<p><i class="fa-solid fa-pen-to-square"></i>Mode édition</p>
 	</div>
@@ -51,8 +52,8 @@
 			</article>
 		</div>
 		<div class="overlay" id="overlay"></div>
-		<div id="window-modale" class="window-modale" >
-			<d iv class="Modale">
+		<div id="window-modale" class="window-modale">
+			<div class="Modale">
 				<a href="index.html"><i class="fa-solid fa-xmark"></i></a>
 				<h3 class="titre-modale">Galerie photo</h3>
 				<div class="gallery-modale">
@@ -60,42 +61,53 @@
 				</div>
 				<hr class="rod">
 				<button class="btn-add-picture">Ajouter une photo</button>
-			</d>
-			
-			<div class="add-projets">
-				<i class="fa-solid fa-arrow-left"></i>
-				<a href="index.html"><i class="fa-solid fa-xmark"></i></a>
-				<h3 class="titre-modale">Ajout photo</h3>
-				<div class="container-photo">
-					<i class="fa-regular fa-image"></i>
-					<button class="btn-ajout-pictures"><a href=""><i class="fa-solid fa-plus"></i>Ajouter photo</a></button>
-					<p>jpg, png : 4mo max</p>
-				</div>
-				<div class="container-form-btn">
-				<label class="label-texte" for="text">Titre</label>
-				<input class="input-texte" type="text"  name="text" >
-				<label class="label-number" for="number">Catégorie</label>
-				<input class="input-number" type="number" name="number" >
-				<hr class="rod-add-pictures">
-				<button class="btn-validation">Valider</button>
-				</div>
 			</div>
+
+			<div class="add-projets">
+				<a href="index.html"><i class="fa-solid fa-xmark-2 fa-xmark"></i></a>
+				<a href="#"><i class="fa-solid fa-arrow-left"></i></a>
+				<h3 class="titre-modal">Ajout photo</h3>
+				<form enctype="multipart/form-data" method="post" action="traitement.php">
+					<div class="container-photo">
+						<label for="image-upload" class="custom-file-upload">
+							<i class="fa-regular fa-image"></i>
+						</label>
+						<input type="file" id="image-upload" name="image" accept="image/jpeg, image/png"
+							style="display: none;">
+						<button class="btn-ajout-pictures" type="button" id="upload-button">
+							<i class="fa-solid fa-plus"></i> Ajouter photo
+						</button>
+						<p>Formats acceptés : jpg, png 4 Mo max </p>
+					</div>
+					<div class="container-form-btn">
+						<label class="label-texte" for="text">Titre</label>
+						<input class="input-texte" type="text" name="text">
+						<label class="label-category" for="Catégorie">Catégorie</label>
+						<select id="category-select" class="input-category" name="category">
+						</select>
+						<hr class="rod-add-pictures">
+						<button class="btn-validation" type="submit">Valider</button>
+					</div>
+				</form>
+			</div>
+
 		</div>
 		<div id="portfolio">
 			<div class="container-h2-lien">
-			<div>
-			<h2 id="projet">Mes Projets</h2>
-			<a id="btn-modify" class="btn-modify" href="#window-modale"><i class="fa-solid fa-pen-to-square"></i>modifier</a>
+				<div>
+					<h2 id="projet">Mes Projets</h2>
+					<a id="btn-modify" class="btn-modify" href="#window-modale"><i
+							class="fa-solid fa-pen-to-square"></i>modifier</a>
+				</div>
+				<div class="container-btn">
+					<button class="btn btn-1 btn-default">Tous</button>
+					<button class="btn btn-2">Objets</button>
+					<button class="btn btn-3">Appartements</button>
+					<button class="btn btn-4">Hôtels & restaurants</button>
+				</div>
+				<div class="gallery">
+				</div>
 			</div>
-			<div class="container-btn">
-				<button class="btn btn-1 btn-default">Tous</button>
-				<button class="btn btn-2">Objets</button>
-				<button class="btn btn-3">Appartements</button>
-				<button class="btn btn-4">Hôtels & restaurants</button>
-			</div>
-			<div class="gallery">
-			</div>
-		</div>
 		</div>
 		<div id="contact">
 			<h2>Contact</h2>
@@ -118,8 +130,8 @@
 				<li>Mentions Légales</li>
 			</ul>
 		</nav>
-	 </footer>
-	
+	</footer>
+
 	<script src="index.js"></script>
 	<script src="modify.js"></script>
 </body>
