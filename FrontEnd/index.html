@@ -53,8 +53,9 @@
 		</div>
 		<div class="overlay" id="overlay"></div>
 		<div id="window-modale" class="window-modale">
+
 			<div class="Modale">
-				<a href="index.html"><i class="fa-solid fa-xmark"></i></a>
+				<a href="#"><i class="fa-solid fa-xmark"></i></a>
 				<h3 class="titre-modale">Galerie photo</h3>
 				<div class="gallery-modale">
 					<!-- projets ajouter dynamiquement en javascript  -->
@@ -64,7 +65,7 @@
 			</div>
 
 			<div class="add-projets">
-				<a href="index.html"><i class="fa-solid fa-xmark-2 fa-xmark"></i></a>
+				<a href="#"><i class="fa-solid fa-xmark "></i></a>
 				<a href="#"><i class="fa-solid fa-arrow-left"></i></a>
 				<h3 class="titre-modal">Ajout photo</h3>
 				<form enctype="multipart/form-data" method="post" action="traitement.php">
@@ -80,10 +81,11 @@
 						<p>Formats acceptés : jpg, png 4 Mo max </p>
 					</div>
 					<div class="container-form-btn">
-						<label class="label-texte" for="text">Titre</label>
+						<label class="label-texte" for="title">Titre</label>
 						<input class="input-texte" type="text" name="text">
-						<label class="label-category" for="Catégorie">Catégorie</label>
+						<label class="label-category" for="category">Catégorie</label>
 						<select id="category-select" class="input-category" name="category">
+							<option value="null">Choisir la catégorie</option>
 						</select>
 						<hr class="rod-add-pictures">
 						<button class="btn-validation" type="submit">Valider</button>

@@ -98,7 +98,7 @@ boutonHotelRestaurant.addEventListener("click", () => {
 fetchProjects();
 
 
-///// ajouter dynamiqiement la class btn-defaut au clique sur les btn 
+///// ajouter dynamiquement la class btn-defaut au clique sur les btn 
 document.addEventListener("DOMContentLoaded", function () {
   const buttons = document.querySelectorAll(".btn");
 
