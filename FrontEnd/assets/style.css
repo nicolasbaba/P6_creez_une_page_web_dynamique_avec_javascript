@@ -275,6 +275,7 @@ footer nav ul {
 	color: red;
 }
 
+
 /************ .window-modale ************/
 .btn-modify{
 	color: black;
@@ -467,11 +468,19 @@ footer nav ul {
 }
 .container-form-btn {
 	width: 100%;
-	height: 64%;
+	height: 400px;
 	display: flex;
 	flex-direction: column;
 	justify-content: center;
 	align-items: center;
+}
+.error-message-3 {
+	margin: 0 auto 12px auto;
+	visibility: hidden;
+	animation-delay: 0.4s;
+	word-spacing: 2px;
+	font-weight: bold;
+	color: red;
 }
 .label-texte {
 	margin: 20px 390px 20px 0;

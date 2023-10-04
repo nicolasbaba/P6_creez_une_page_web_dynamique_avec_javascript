@@ -149,7 +149,7 @@ fetch(apiURL)
   .then((data) => {
     // Créer un tableau pour stocker les catégories uniques (avec ID et nom)
     const uniqueCategories = [];
-    console.log(uniqueCategories);
+    // console.log(uniqueCategories);
     // Parcourir les données de l'API
     data.forEach((item) => {
       if (item.category && item.category.id && item.category.name) {
@@ -249,6 +249,7 @@ validationButton.addEventListener("click", async function (e) {
     }
   } else {
     // Les conditions ne sont pas remplies, affiche un message d'erreur
-    console.error("Veuillez remplir tous les champs du formulaire.");
+     const errorMessage3 = document.getElementById("error-message-3");
+     errorMessage3.style.visibility = "visible";
   }
 });
