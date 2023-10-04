@@ -89,13 +89,22 @@ function deleteProjectById(projectId) {
     },
   })
     .then((response) => {
-      console.log("	Non autorisé", response);
+      if (response.status === 200) {
+        // Suppression réussie
+        console.log("Projet supprimé avec succès");
+        const projectId = response.json();
+        remove(projectId);
+      } else if (response.status === 401) {
+        console.log("Non autorisé");
+      } else {
+        console.log("Échec de la suppression");
+      }
     })
     .catch((error) => {
       console.error("Une erreur s'est produite lors de la requête.", error);
     });
 }
-
+////////////////// afficher ou fermer la modal 
 const addProjects = document.querySelector(".add-projets");
 const Modale = document.querySelector(".Modale");
 const boutonAddPhoto = document.querySelector(".btn-add-picture");
@@ -143,7 +152,7 @@ imageUpload.addEventListener("change", () => {
 
 const categorySelect = document.getElementById("category-select");
 
-// Effectuer une requête GET vers l'API
+// Effectuer une requête GET vers l'API pour integre dynamiquement le choix des categorie
 fetch(apiURL)
   .then((response) => response.json())
   .then((data) => {
@@ -179,6 +188,7 @@ fetch(apiURL)
       error
     );
   });
+
 
 // Sélectionnez les éléments du formulaire
 
@@ -220,7 +230,7 @@ validationButton.addEventListener("click", async function (e) {
 
     const token = sessionStorage.getItem("token");
 
-    // Envoiez les données à l'API via une requête POST multipart/form-data
+    // Envoie les données à l'API via une requête POST multipart/form-data
     try {
       const response = await fetch(apiURL, {
         method: "POST",
@@ -233,6 +243,9 @@ validationButton.addEventListener("click", async function (e) {
       if (response.status === 201) {
         // Requête réussie
         console.log("Œuvre créée avec succès");
+
+        const newProject = await response.json();
+         add(newProject);
       } else if (response.status === 400) {
         // Mauvaise demande
         console.error("Mauvaise demande");
