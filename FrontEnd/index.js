@@ -1,10 +1,9 @@
+
 const apiURL = "http://localhost:5678/api/works";
 const galleryDiv = document.querySelector(".gallery");
 let originalData = [];
 
-// console.log(apiURL);
-
-///recuperation des donne via l'API
+// recupération des donnees via l'API
 const requestOptions = {
   method: "GET",
   headers: {
@@ -26,32 +25,11 @@ function fetchProjects() {
       originalData = data;
       displayProjects(data);
       displayProjectsInModal();
-    })
-    .then(() => {
-      // Sélectionnez tous les éléments avec la classe "btn-trash"
-      const trashLinks = document.querySelectorAll(".btn-trash");
-      trashLinks.forEach((trashLink) => {
-        trashLink.addEventListener("click", (e) => {
-          // Empêcher le lien de rediriger vers une autre page
-          e.preventDefault();
-          const projectIdToDelete = trashLink.getAttribute("data-id");
-          console.log(projectIdToDelete);
-          /// double validation avant supression
-          function confirmDelete() {
-            const confirmation = window.confirm(
-              "Voulez-vous vraiment supprimer ce projet ?"
-            );
-            if (confirmation) {
-              deleteProjectById(projectIdToDelete);
-            }
-          }
-          confirmDelete();
-        });
-      });
+      createButtons();
     });
 }
 
-/////intégré dinamiquement les projet a la page
+// Integration dynamique des projets dans la page
 function displayProjects(data) {
   let projectsHTML = "";
   data.forEach((work) => {
@@ -63,55 +41,73 @@ function displayProjects(data) {
     `;
   });
   galleryDiv.innerHTML = projectsHTML;
+
 }
-////function filterProjectsByCategory egale a categoryId
+
+// Fonction pour filtrer les projets par categoryId
 function filterProjectsByCategory(categoryId) {
-  const filteredData = originalData.filter(
-    (work) => work.categoryId === categoryId
-  );
-  displayProjects(filteredData);
+  if (categoryId === null) {
+    // Si CategoryId est nul, affichez tous les projets
+    displayProjects(originalData);
+  } else {
+    // Sinon, filtrez les projets selon le CategoryId spécifié.
+    const filteredData = originalData.filter(
+      (work) => work.categoryId === categoryId
+    );
+    displayProjects(filteredData);
+  }
 }
 
-////trier les projet
-const boutonTous = document.querySelector(".btn-1");
-const boutonObjet = document.querySelector(".btn-2");
-const boutonApartements = document.querySelector(".btn-3");
-const boutonHotelRestaurant = document.querySelector(".btn-4");
-////au clique sur boutonTous afficher touts les projet
-boutonTous.addEventListener("click", () => {
-  displayProjects(originalData);
-});
-///// au clique sure boutonObjet afficher tout les objet
-boutonObjet.addEventListener("click", () => {
-  filterProjectsByCategory(1);
-});
-//// au clique boutonApartements afficher tout les apartement
-boutonApartements.addEventListener("click", () => {
-  filterProjectsByCategory(2);
-});
-//// au clique sur boutonHotelRestaurant afficher tous les hotel/restaurant
-boutonHotelRestaurant.addEventListener("click", () => {
-  filterProjectsByCategory(3);
-});
+// Function pour créer et ajouter des boutons dynamiquement
+function createButtons() {
+  const buttonContainer = document.querySelector(".container-btn");
 
-////// Appel initial pour récupérer tous les projets
-fetchProjects();
+  const buttonInfo = [
+    { label: "Tous", categoryId: null },
+    { label: "Objet", categoryId: 1 },
+    { label: "Apartements", categoryId: 2 },
+    { label: "Hotel/Restaurant", categoryId: 3 },
+  ];
 
-
-///// ajouter dynamiquement la class btn-defaut au clique sur les btn 
-document.addEventListener("DOMContentLoaded", function () {
-  const buttons = document.querySelectorAll(".btn");
-
-  buttons.forEach((button) => {
-    button.addEventListener("click", function () {
-      // Supprime la classe "btn-default" de tous les boutons
-      buttons.forEach((btn) => {
+  buttonInfo.forEach((info) => {
+    const button = document.createElement("button");
+    button.textContent = info.label;
+    button.classList.add("btn");
+    if (info.categoryId === null) {
+      button.classList.add("btn-default");
+    }
+    button.addEventListener("click", () => {
+      filterProjectsByCategory(info.categoryId);
+      //Supprimez la classe "btn-default" de tous les boutons
+      document.querySelectorAll(".btn").forEach((btn) => {
         btn.classList.remove("btn-default");
       });
+      // Ajoutez la classe "btn-default" au bouton cliqué
+      button.classList.add("btn-default");
+    });
+    buttonContainer.appendChild(button);
+  });
 
-      // Ajoute la classe "btn-default" au bouton actuellement cliqué
-      this.classList.add("btn-default");
+  /////////ecoute tout les btn de supression de projet "btn-trash" avec double validation avant supression du projet 
+  const trashLinks = document.querySelectorAll(".btn-trash");
+  trashLinks.forEach((trashLink) => {
+    trashLink.addEventListener("click", (e) => {
+      e.preventDefault();
+      const projectIdToDelete = trashLink.getAttribute("data-id");
+      console.log(projectIdToDelete);
+      // Double validation avant la supression du projet
+      function confirmDelete() {
+        const confirmation = window.confirm(
+          "Voulez-vous vraiment supprimer ce projet ?"
+        );
+        if (confirmation) {
+          deleteProjectById(projectIdToDelete);
+        }
+      }
+      confirmDelete();
     });
   });
-});
+}
 
+// Appel initial pour récupérer tous les projets et créer les boutons
+fetchProjects();

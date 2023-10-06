@@ -427,6 +427,7 @@ footer nav ul {
 	background: #CBD6DC;
 	border: none;
 	color:#306685;
+	cursor: pointer;
 }
 .btn-ajout-pictures a{
 	color: #306685;
@@ -510,6 +511,14 @@ footer nav ul {
 	height: 169px;
 }  
 
+#image-upload{
+	display: none;
+}
 
-
-
+.close-pictures{
+	display: none;
+	position: absolute;
+	font-size: 0.9rem;
+	top: 170px;
+	left: -80px;
+}
