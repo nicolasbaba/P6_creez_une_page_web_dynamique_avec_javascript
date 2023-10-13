@@ -58,35 +58,56 @@ function filterProjectsByCategory(categoryId) {
   }
 }
 
-// Function pour créer et ajouter des boutons dynamiquement
 function createButtons() {
   const buttonContainer = document.querySelector(".container-btn");
 
-  const buttonInfo = [
-    { label: "Tous", categoryId: null },
-    { label: "Objet", categoryId: 1 },
-    { label: "Apartements", categoryId: 2 },
-    { label: "Hotel/Restaurant", categoryId: 3 },
-  ];
-
-  buttonInfo.forEach((info) => {
-    const button = document.createElement("button");
-    button.textContent = info.label;
-    button.classList.add("btn");
-    if (info.categoryId === null) {
-      button.classList.add("btn-default");
+  // Fetch categories from the API
+  fetch("http://localhost:5678/api/categories", {
+    method: "GET",
+    headers: {
+      "Accept": "application/json",
     }
-    button.addEventListener("click", () => {
-      filterProjectsByCategory(info.categoryId);
-      //Supprimez la classe "btn-default" de tous les boutons
+  })
+  .then((response) => {
+    if (!response.ok) {
+      throw new Error(`La requête a échoué avec le statut ${response.status}`);
+    }
+    return response.json();
+  })
+  .then((categories) => {
+    /// cree "tous" bouton qui affiche toutes les category
+    const allButton = document.createElement("button");
+    allButton.textContent = "Tous";
+    allButton.classList.add("btn", "btn-default");
+    allButton.addEventListener("click", () => {
+      filterProjectsByCategory(null); // Show all projects
       document.querySelectorAll(".btn").forEach((btn) => {
         btn.classList.remove("btn-default");
       });
-      // Ajoutez la classe "btn-default" au bouton cliqué
-      button.classList.add("btn-default");
+      allButton.classList.add("btn-default");
     });
-    buttonContainer.appendChild(button);
+    buttonContainer.appendChild(allButton);
+
+    // Créer des boutons basés sur les catégories récupérées
+    categories.forEach((category) => {
+      const button = document.createElement("button");
+      button.textContent = category.name;
+      button.classList.add("btn");
+      button.addEventListener("click", () => {
+        filterProjectsByCategory(category.id);
+        document.querySelectorAll(".btn").forEach((btn) => {
+          btn.classList.remove("btn-default");
+        });
+        button.classList.add("btn-default");
+      });
+      buttonContainer.appendChild(button);
+    });
+  })
+  .catch((error) => {
+    console.error("Error fetching categories:", error);
   });
+
+
 
   /////////ecoute tout les btn de supression de projet "btn-trash" avec double validation avant supression du projet 
   const trashLinks = document.querySelectorAll(".btn-trash");
@@ -107,7 +128,8 @@ function createButtons() {
       confirmDelete();
     });
   });
-}
 
+}
 // Appel initial pour récupérer tous les projets et créer les boutons
 fetchProjects();
+

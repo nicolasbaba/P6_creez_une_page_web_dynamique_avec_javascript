@@ -30,7 +30,7 @@ if (token) {
   //afficher l'élément "banner"
   banner.style.display = "block";
 }
-
+/////genere le code html avec les projet et les btn de supression
 function generateProjectsHTML(data) {
   let projectsHTML = "";
   data.forEach((work) => {
@@ -55,6 +55,10 @@ function displayProjectsInModal() {
 ///afficher la fenetre modale au click sur bouton modifier
 btnModify.addEventListener("click", () => {
   windowModale.style.display = "inline-block";
+  //// au clique sur vtn-modify toujour afficher galerie photo
+  Modale.style.display = "block";
+  addProjects.style.display = "none";
+  
   showWindowModale();
 });
 
@@ -76,9 +80,12 @@ function hideWindowModale() {
   ///// Réinitialise les valeurs des champs du formulaire
   titleInput.value = "";
   categorySelect.value = "null";
-  /////masquer message erreur quand on sort de la modale
-  const errorMessage3 = document.getElementById("error-message-3");
-  errorMessage3.style.visibility = "hidden";
+  imageUpload.value = ""; 
+
+  closeButtonPictures.style.display = "none";
+  
+  updateValidationButtonStyle();
+    validationButton.classList.remove("btn-validation-active");
 }
 
 // Ajoutez un écouteur de clic à l'overlay pour masquer la fenêtre modale et l'overlay
@@ -136,14 +143,15 @@ boutonAddPhoto.addEventListener("click", (e) => {
   addProjects.style.display = "block";
 });
 
-/////retourner a la fenetre supression de projet au cliquer sur la fleche "fa-arrow-left"
+/////retourner a la modale supression de projet au cliquer sur la fleche "fa-arrow-left"
 const arrowReturne = document.querySelector(".fa-arrow-left");
-arrowReturne.addEventListener("click", () => {
+arrowReturne.addEventListener("click", (e) => {
+  e.preventDefault();
   Modale.style.display = "block";
   addProjects.style.display = "none";
 });
 
-  const closeButton = document.querySelector(".close-pictures");
+  const closeButtonPictures = document.querySelector(".close-pictures");
 
 /////////// remplacer le contenu de la div "container-phtot" par l'image selectionee
 function setupUploadButton() {
@@ -163,15 +171,19 @@ function setupUploadButton() {
       containerPhoto.innerHTML = "";
       containerPhoto.appendChild(imgElement);
       /////afficher btn "close-picture"
-      closeButton.style.display = "block";
+      closeButtonPictures.style.display = "block";
       
-      closeButton.addEventListener("click", () => {
+      closeButtonPictures.addEventListener("click", () => {
         ///// reinitialise le contenue de la div containerPhoto
         containerPhoto.innerHTML = initialContainerPhotoContent;
         ///// Réinitialise les gestionnaires d'événements pour le bouton d'ajout de photo
         setupUploadButton();
-        // Cacher le bouton de fermeture
-        closeButton.style.display = "none";
+        // Cacher le bouton de fermeture de la photo
+        closeButtonPictures.style.display = "none";
+        // Réinitialiser la valeur de imageUpload
+        imageUpload.value = "";
+        // Mettre à jour le style du bouton de validation
+        updateValidationButtonStyle();
       });
 
     }
@@ -237,6 +249,7 @@ function updateValidationButtonStyle() {
   }
 }
 
+
 validationButton.addEventListener("click", async function (e) {
   e.preventDefault();
 
@@ -244,8 +257,8 @@ validationButton.addEventListener("click", async function (e) {
     const form = new FormData(); // Créez un objet FormData pour envoyer les données
 
     // Récupérez le fichier sélectionné depuis le champ de téléchargement d'image
-    const imageFile = imageUpload.files[0];
-
+    const imageFile = imageUpload.files[0]; // Utilisez la photo actuellement sélectionnée
+    console.log(imageFile);
     // Ajoutez les valeurs des champs du formulaire à FormData
     form.append("image", imageFile);
     form.append("title", titleInput.value);
@@ -253,7 +266,7 @@ validationButton.addEventListener("click", async function (e) {
 
     const token = sessionStorage.getItem("token");
 
-    // Envoie les données à l'API via une requête POST 
+    // Envoie les données à l'API via une requête POST
     try {
       const response = await fetch(apiURL, {
         method: "POST",
@@ -274,16 +287,11 @@ validationButton.addEventListener("click", async function (e) {
         // Non autorisé
         console.error("Non autorisé");
       } else {
-        // Erreur inattendue
-        console.error("Erreur inattendue");
+        console.error("Statut de réponse inattendu :", response.status);
       }
     } catch (error) {
-      // Gestion des erreurs réseau
-      console.error("Erreur lors de la requête", error);
+      console.error("Une erreur s'est produite lors de la requête.", error);
     }
-  } else {
-    // Les conditions ne sont pas remplies, affiche un message d'erreur
-    const errorMessage3 = document.getElementById("error-message-3");
-    errorMessage3.style.visibility = "visible";
   }
 });
+
