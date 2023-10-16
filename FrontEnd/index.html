@@ -68,10 +68,10 @@
 				<a href="#"><i class="fa-solid fa-xmark "></i></a>
 				<a href="#"><i class="fa-solid fa-arrow-left"></i></a>
 				<h3 class="titre-modal">Ajout photo</h3>
-				<a href="#"><i class="fa-solid fa-xmark close-pictures "></i></a>
+				<!-- <a href="#"><i class="fa-solid fa-xmark close-pictures "></i></a> -->
 				<form>
 					<div class="container-photo">
-						<label for="image-upload" class="custom-file-upload">
+						<label class="img-upload" for="image-upload" class="custom-file-upload">
 							<i class="fa-regular fa-image"></i>
 						</label>
 						<input type="file" id="image-upload" name="image" accept="image/jpeg, image/png">
@@ -80,9 +80,12 @@
 						</button>
 						<p>Formats acceptés : jpg, png 4 Mo max </p>
 					</div>
+					<div class="container-photo-2">
+						<a href="#"><i class="fa-solid fa-xmark close-pictures "></i></a>
+					</div>
 					<div class="container-form-btn">
 						<label class="label-texte" for="title">Titre</label>
-						<input class="input-texte" type="text" name="text">
+						<input class="input-texte" type="text" name="text" id="title-input" >
 						<label class="label-category" for="category">Catégorie</label>
 						<select id="category-select" class="input-category" name="category">
 							<option value="null">Choisir la catégorie</option>

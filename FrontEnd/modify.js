@@ -14,11 +14,11 @@ const boutonAddPhoto = document.querySelector(".btn-add-picture");
 const uploadButton = document.getElementById("upload-button");
 const imageUpload = document.getElementById("image-upload");
 const containerPhoto = document.querySelector(".container-photo");
-const initialContainerPhotoContent = containerPhoto.innerHTML;
 const categorySelect = document.getElementById("category-select");
 const titleInput = document.querySelector('input[name="text"]');
 const validationButton = document.querySelector(".btn-validation");
-
+const containerPhoto2 = document.querySelector(".container-photo-2");
+ 
 // Vérifier si le token existe si l'utilisateur est authentifié
 if (token) {
   // Afficher l'élément "modifier"
@@ -58,7 +58,7 @@ btnModify.addEventListener("click", () => {
   //// au clique sur vtn-modify toujour afficher galerie photo
   Modale.style.display = "block";
   addProjects.style.display = "none";
-  
+
   showWindowModale();
 });
 
@@ -73,20 +73,18 @@ function hideWindowModale() {
   /////masquer la fentre modale et l'overlay
   windowModale.style.display = "none";
   overlay.style.display = "none";
-  ///// reinitialise le contenue de la div containerPhoto
-  containerPhoto.innerHTML = initialContainerPhotoContent;
-  ///// Réinitialise les gestionnaires d'événements pour le bouton d'ajout de photo
-  setupUploadButton();
-  ///// Réinitialise les valeurs des champs du formulaire
-  titleInput.value = "";
-  categorySelect.value = "null";
-  imageUpload.value = ""; 
-
-  closeButtonPictures.style.display = "none";
-  
-  updateValidationButtonStyle();
-    validationButton.classList.remove("btn-validation-active");
+  // validationButton.classList.remove("btn-validation-active");
+   closeButtonPictures.style.display = "none";
+   // la div container-photo-2
+   containerPhoto2.style.display = "none";
+   // Cacher la div container-photo
+   containerPhoto.style.display = "block";
+   // Réinitialiser la valeur de imageUpload
+   imageUpload.value = "";
+   // Mettre à jour le style du bouton de validation
+  resetImageUpload();
 }
+
 
 // Ajoutez un écouteur de clic à l'overlay pour masquer la fenêtre modale et l'overlay
 overlay.addEventListener("click", () => {
@@ -151,45 +149,65 @@ arrowReturne.addEventListener("click", (e) => {
   addProjects.style.display = "none";
 });
 
-  const closeButtonPictures = document.querySelector(".close-pictures");
+const closeButtonPictures = document.querySelector(".container-photo-2");
 
-/////////// remplacer le contenu de la div "container-phtot" par l'image selectionee
+function resetImageUpload() {
+  if(imageUpload){
+    imageUpload.value = "";
+    // Réinitialise la valeur du champ de téléchargement
+    updateValidationButtonStyle(); // Met à jour le style du bouton de validation
+  }
+}
+
 function setupUploadButton() {
   const uploadButton = document.getElementById("upload-button");
   const imageUpload = document.getElementById("image-upload");
+  const containerPhoto = document.querySelector(".container-photo"); 
+  const closeButtonPictures = document.querySelector(".close-pictures"); 
 
   uploadButton.addEventListener("click", () => {
     imageUpload.click();
+    resetImageUpload();
   });
 
-  imageUpload.addEventListener("change", () => {
-    const file = imageUpload.files[0];
-    if (file) {
+  imageUpload.addEventListener("change", function () {
+    if (imageUpload.files && imageUpload.files[0]) {
+      // Cacher la div container-photo
+      containerPhoto.style.display = "none";
+      // Afficher la div container-photo-2
+      containerPhoto2.style.display = "block";
+      // resetImageUpload();
+      const oldImage = containerPhoto2.querySelector("img");
+      if (oldImage) {
+        containerPhoto2.removeChild(oldImage);
+      }
+
+      // Créer un élément image pour afficher la photo sélectionnée
       const imgElement = new Image();
-      imgElement.src = URL.createObjectURL(file);
+      imgElement.src = URL.createObjectURL(imageUpload.files[0]); // Utilisez imageUpload.files[0] pour obtenir le fichier
       imgElement.alt = "Image sélectionnée";
-      containerPhoto.innerHTML = "";
-      containerPhoto.appendChild(imgElement);
-      /////afficher btn "close-picture"
+      // Ajouter l'image à container-photo-2
+      containerPhoto2.appendChild(imgElement);
+      // Afficher le bouton "close-picture"
       closeButtonPictures.style.display = "block";
-      
+
       closeButtonPictures.addEventListener("click", () => {
-        ///// reinitialise le contenue de la div containerPhoto
-        containerPhoto.innerHTML = initialContainerPhotoContent;
-        ///// Réinitialise les gestionnaires d'événements pour le bouton d'ajout de photo
-        setupUploadButton();
+        resetImageUpload();
         // Cacher le bouton de fermeture de la photo
         closeButtonPictures.style.display = "none";
-        // Réinitialiser la valeur de imageUpload
-        imageUpload.value = "";
-        // Mettre à jour le style du bouton de validation
-        updateValidationButtonStyle();
+        // la div container-photo-2
+        containerPhoto2.style.display = "none";
+        // Cacher la div container-photo
+        containerPhoto.style.display = "block";
+        //// Réinitialiser la valeur de imageUpload Mettre à jour le style du bouton de validation
       });
-
     }
   });
 }
+ 
+// Appelez la fonction setupUploadButton pour configurer les gestionnaires d'événements
 setupUploadButton();
+
 
 // Effectuer une requête GET vers l'API pour integre dynamiquement les choix des categorie
 fetch(apiURL)
@@ -232,12 +250,18 @@ fetch(apiURL)
   });
 
 // Écoutez les changements dans les champs du formulaire
-imageUpload.addEventListener("change", updateValidationButtonStyle);
+// imageUpload.addEventListener("change", updateValidationButtonStyle);
+imageUpload.addEventListener("change", () => {
+  console.log("Changement de l'image détecté.");
+  updateValidationButtonStyle(); 
+  // Assurez-vous que le code de mise à jour du bouton "Valider" est correct ici.
+});
 titleInput.addEventListener("input", updateValidationButtonStyle);
 categorySelect.addEventListener("change", updateValidationButtonStyle);
 
 // Fonction pour mettre à jour le style du bouton de validation
 function updateValidationButtonStyle() {
+  console.log("update")
   if (
     imageUpload.files.length > 0 &&
     titleInput.value.trim() !== "" &&
@@ -253,6 +277,8 @@ function updateValidationButtonStyle() {
 validationButton.addEventListener("click", async function (e) {
   e.preventDefault();
 
+  // updateValidationButtonStyle();
+  
   if (validationButton.classList.contains("btn-validation-active")) {
     const form = new FormData(); // Créez un objet FormData pour envoyer les données
 
@@ -294,4 +320,3 @@ validationButton.addEventListener("click", async function (e) {
     }
   }
 });
-
