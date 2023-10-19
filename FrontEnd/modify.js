@@ -18,7 +18,9 @@ const categorySelect = document.getElementById("category-select");
 const titleInput = document.querySelector('input[name="text"]');
 const validationButton = document.querySelector(".btn-validation");
 const containerPhoto2 = document.querySelector(".container-photo-2");
- 
+const bntLogin = document.querySelector(".login")
+const btnLogout = document.querySelector(".logout")
+
 // Vérifier si le token existe si l'utilisateur est authentifié
 if (token) {
   // Afficher l'élément "modifier"
@@ -29,7 +31,29 @@ if (token) {
 
   //afficher l'élément "banner"
   banner.style.display = "block";
+ // masquer btn login
+  bntLogin.style.display = "none"
+//afficher btn logout
+  btnLogout.style.display = "block"
 }
+
+//// ce deconnecter du mode edition en cliquant sur logout 
+btnLogout.addEventListener("click", () => {
+  // Masquer l'élément "modifier"
+  btnModify.style.visibility = "hidden";
+  // Afficher l'élément "container-btn"
+  containerBtn.style.visibility = "visible";
+  //masquer l'eélément banner
+  banner.style.display = "none";
+  //afficher btn login
+  bntLogin.style.display = "block";
+  //masquer logout
+  btnLogout.style.display = "none";
+  // Supprimer le token d'authentification du sessionStorage
+  sessionStorage.removeItem("token");
+})
+
+
 /////genere le code html avec les projet et les btn de supression
 function generateProjectsHTML(data) {
   let projectsHTML = "";

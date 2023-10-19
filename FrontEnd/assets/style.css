@@ -528,3 +528,7 @@ footer nav ul {
 	top: 170px;
 	left: -80px;
 }
+.logout{
+	display: none;
+	margin-left: -20px;
+}
